@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wzzm.goods.dao.GoodsDao">
+    <!--搜索-->
+    <select id="cn.wzzm.goods.dao.GoodsDao.searchGoodsList" resultType="cn.wzzm.goods.pojo.Goods" parameterType="String">
+        select gid,gname,gprice,ginfo,gimage,ginfoimage,gstate,sid,tid
+        from goodsform
+        <if test="keyword!=null and keyword!=''">
+            <bind name="keyword" value="'%'+keyword+'%'"/>
+            where gname like #{keyword}
+        </if>
+        and sid = #{stid}
+    </select>
+    <!--上新-->
+    <insert id="cn.wzzm.goods.dao.GoodsDao.insertGoods" parameterType="cn.wzzm.goods.pojo.Goods">
+        insert into goodsform
+        <trim prefix="set" suffixOverrides="," suffix=",gstate=1">
+            <if test="goods.gid != null">gid = 0,</if>
+            <if test="goods.gname != null">gname=#{goods.gname} ,</if>
+            <if test="goods.gprice != null">gprice=#{goods.gprice} ,</if>
+            <if test="goods.ginfo != null">ginfo=#{goods.ginfo} ,</if>
+            <if test="goods.gimage != null">gimage=#{goods.gimage} ,</if>
+            <if test="goods.ginfoimage != null">ginfoimage=#{goods.ginfoimage} ,</if>
+            <if test="goods.gdate != null">gdate=#{goods.gdate} ,</if>
+            <if test="goods.sid != null">sid=#{goods.sid} ,</if>
+            <if test="goods.tid != null">tid=#{goods.tid}</if>
+        </trim>
+    </insert>
+    <!--下架-->
+    <update id="cn.wzzm.goods.dao.GoodsDao.deleteGoodsByID" parameterType="int">
+        update goodsform set gstate = 0 where gid = #{gid}
+    </update>
+    <!--修改商品-->
+    <update id="cn.wzzm.goods.dao.GoodsDao.editGoodsByID">
+        update goodsform
+        <trim prefix="set" suffixOverrides=",">
+            <if test="g.gname != null">gname=#{g.gname} ,</if>
+            <if test="g.gprice != null">gprice=#{g.gprice} ,</if>
+            <if test="g.ginfo != null">ginfo=#{g.ginfo} ,</if>
+            <if test="g.gimage != null">gimage=#{g.gimage} ,</if>
+            <if test="g.ginfoimage != null">ginfoimage=#{g.ginfoimage} ,</if>
+            <if test="g.gdate != null">gdate=#{g.gdate} ,</if>
+            <if test="g.sid != null">sid=#{g.sid} ,</if>
+            <if test="g.tid != null">tid=#{g.tid}</if>
+        </trim>
+        where gid = #{gid}
+    </update>
+</mapper>

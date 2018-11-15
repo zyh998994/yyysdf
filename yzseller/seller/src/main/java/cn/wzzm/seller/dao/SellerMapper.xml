@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wzzm.seller.dao.SellerDao">
+    <select id="cn.wzzm.seller.dao.SellerDao.getLogin" resultType="cn.wzzm.seller.pojo.Seller">
+        select sename,sephone,seaddress from sellerform
+        where sename = #{sname}
+        and sepwd = #{spwd}
+    </select>
+    <insert id="cn.wzzm.seller.dao.SellerDao.getSigin">
+        insert into sellerform values (0,#{s.sename},
+        #{s.sepwd},
+        #{s.sephone},
+        #{s.seaddress})
+    </insert>
+    <select id="cn.wzzm.seller.dao.SellerDao.getSellerCount" resultType="int">
+        select count(1) from sellerform
+    </select>
+</mapper>

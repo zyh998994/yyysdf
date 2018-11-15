@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wzzm.order.dao.OrderDao">
+    <!--查询所有订单-->
+    <select id="cn.wzzm.order.dao.OrderDao.getAllOrder" resultType="cn.wzzm.order.pojo.Orders">
+        select * from orderform
+    </select>
+    <!--发货-->
+    <update id="cn.wzzm.order.dao.OrderDao.fhOrder" parameterType="int">
+        update orderform set state = 2 where oid = #{oid}
+    </update>
+    <!--根据订单号查询订单-->
+    <select id="cn.wzzm.order.dao.OrderDao.getOrdersByNum" parameterType="String" resultType="cn.wzzm.order.pojo.Orders">
+        select * from orderform where bianhao = #{onum}
+    </select>
+    <!--查询签收订单-->
+    <select id="cn.wzzm.order.dao.OrderDao.getSiginOrders" resultType="cn.wzzm.order.pojo.Orders">
+        select * from orderform where state = 3
+    </select>
+</mapper>

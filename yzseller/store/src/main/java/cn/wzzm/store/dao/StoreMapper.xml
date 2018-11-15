@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wzzm.store.dao.StoreDao">
+    <insert id="cn.wzzm.store.dao.StoreDao.insertStore" parameterType="cn.wzzm.store.pojo.Store">
+        insert into storeform values(0,#{s.sname},"simage.jpg",0,#{seller});
+    </insert>
+    <update id="cn.wzzm.store.dao.StoreDao.updateStoreLevel">
+        update storeform
+        set slevel = #{level}
+        where sid = #{sid}
+    </update>
+    <update id="cn.wzzm.store.dao.StoreDao.updateStoreImage">
+        update storeform
+        set simage = #{fileName}
+        where sid = #{sid}
+    </update>
+</mapper>
